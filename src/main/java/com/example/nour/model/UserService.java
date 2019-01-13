@@ -33,8 +33,9 @@ public class UserService implements UserDetailsService {
 		// TODO Auto-generated method stub
 		AppUser appUser = appUserRepository.findByEmail(email);
 		if(appUser != null) {
-			return new org.springframework.security.core.userdetails.User(appUser.getEmail(), appUser.getPassword(),
-					true,true,true,true, getAuthorities(appUser.getUserRoles()));
+			return new MyUserDetails(appUser.getEmail(), appUser.getPassword(),
+					true,true,true,true, getAuthorities(appUser.getUserRoles()),
+					appUser.getAppUserId(), appUser.getFirstname(), appUser.getLastname());
 		}	
 		
 		throw new UsernameNotFoundException(email);
