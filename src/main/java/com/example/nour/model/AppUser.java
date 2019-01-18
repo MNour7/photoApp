@@ -39,7 +39,7 @@ public class AppUser implements Serializable {
 	private List<Child> childs;
 
 	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="appUser")
+	@OneToMany(mappedBy="appUser", fetch = FetchType.EAGER)
 	private List<UserRole> userRoles;
 
 	//bi-directional many-to-one association to Photo

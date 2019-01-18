@@ -32,6 +32,8 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		AppUser appUser = appUserRepository.findByEmail(email);
+//		System.err.println("Firstname :"+appUser.getFirstname()+", lastname : "+appUser.getLastname());
+//		System.err.println("UserRoles :"+appUser.getUserRoles());
 		if(appUser != null) {
 			return new MyUserDetails(appUser.getEmail(), appUser.getPassword(),
 					true,true,true,true, getAuthorities(appUser.getUserRoles()),
@@ -45,6 +47,7 @@ public class UserService implements UserDetailsService {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		
 		for (UserRole userRole : userRoles) {
+//			System.err.println("Role : "+userRole.getRole().getRoleId()+" "+userRole.getRole().getTile());
 			authorities.add(new SimpleGrantedAuthority(userRole.getRole().getTile()));
 		}
 		

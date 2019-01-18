@@ -6,4 +6,6 @@ import com.example.nour.model.AppUser;
 
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 	AppUser findByEmail(String email);
+
+	AppUser findByAppUserId(int id);
 }

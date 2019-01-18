@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.example.nour.model.Photo;
 
 public interface PhotoRepository extends CrudRepository<Photo,Integer> {
-	List<Photo> findAllByAuthorIdOrderByDateTake(int autho_id);
-	List<Photo> findAllByChildOrderByDateTake(int child_id);
-	List<Photo> findAllByClazzOrderByDateTake(int class_id);
+	List<Photo> findAllByAppUserAppUserIdOrderByDateTake(int autho_id);
+	List<Photo> findAllByChildChildIdOrderByDateTake(int child_id);
+	List<Photo> findAllByClazzClassIdOrderByDateTake(int class_id);
 }

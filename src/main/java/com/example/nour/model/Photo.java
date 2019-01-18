@@ -1,6 +1,8 @@
 package com.example.nour.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -24,10 +26,10 @@ public class Photo implements Serializable {
 	private Date dateTake;
 
 	private String name;
-
-	@Lob
-	@Column(name="photo_path")
-	private String photoPath;
+	
+	private String path;
+	
+	private byte[] image;
 
 	private String type;
 
@@ -78,14 +80,6 @@ public class Photo implements Serializable {
 		this.name = name;
 	}
 
-	public String getPhotoPath() {
-		return this.photoPath;
-	}
-
-	public void setPhotoPath(String photoPath) {
-		this.photoPath = photoPath;
-	}
-
 	public String getType() {
 		return this.type;
 	}
@@ -125,5 +119,20 @@ public class Photo implements Serializable {
 	public void setPhotoOrder(PhotoOrder photoOrder) {
 		this.photoOrder = photoOrder;
 	}
+	
+	public byte[] getImage() {
+		return image;
+	}
 
+	public void setImage(byte[] bs) {
+		this.image = bs;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 }
