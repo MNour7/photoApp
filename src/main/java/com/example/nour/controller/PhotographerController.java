@@ -121,6 +121,74 @@ public class PhotographerController {
 		return "addPhoto";
 	}
 	
+	@GetMapping(path="/editPhoto/{photo_id}/{school_id}")
+	public String editPhoto(Model model, @PathVariable("photo_id") int photo_id, 
+			@PathVariable("school_id") int school_id) {
+		
+		model.addAttribute("childs", childRepository.findAllBySchoolSchoolId(school_id));
+		model.addAttribute("classes", classRepository.findAllBySchoolSchoolId(school_id));
+		model.addAttribute("photoForm", photoRepository.findByPhotoId(photo_id));
+		
+		return "editPhoto";
+	}
+	
+	@PostMapping(path="/saveEditPhoto")
+	public String saveEditPhoto(Model model, @ModelAttribute Photo photoForm){
+		
+		Photo photo = photoRepository.findByPhotoId(photoForm.getPhotoId());
+		
+		photo.setName(photoForm.getName());
+		photo.setType(photoForm.getType());
+		if(photo.getType().equals("class")) {
+			Class clazz = classRepository.findByClassId(photoForm.getClazz().getClassId());
+			photo.setClazz(clazz);
+			photo.setChild(null);
+		}else {
+			Child child = childRepository.findByChildId(photoForm.getChild().getChildId());
+			photo.setChild(child);
+			photo.setClazz(null);
+		}		
+		
+		photoRepository.save(photo);
+		
+		return "redirect:shop";
+	}
+	
+	@GetMapping(path="/deletePhoto/{photo_id}")
+	public @ResponseBody String deletePhoto(@PathVariable int photo_id) {
+		
+		Photo photo = photoRepository.findByPhotoId(photo_id);
+		
+		if(delete(photo.getPath())) {
+			photoRepository.delete(photo);
+			return "OK";
+		}
+		
+		return "NO";
+		
+	}
+	
+	public boolean delete(String path) {
+		boolean bool = false;
+		URL url = ServletContextListener.class.getClassLoader().getResource("static/images/");
+		
+		try{    		
+    		File file = new File(url.getPath()+path);        	
+    		if(file.delete()){
+    			bool=true;
+    			System.out.println(file.getName() + " is deleted!");
+    		}else{
+    			bool=false;
+    			System.out.println("Delete operation is failed.");
+    		}
+    	   
+    	}catch(Exception e){    		
+    		e.printStackTrace();    		
+    	}
+		
+		return bool;
+	}
+	
 	@GetMapping(path="/loadClasses/{idSchool}")
 	public @ResponseBody String loadClasses(@PathVariable int idSchool) {
 		

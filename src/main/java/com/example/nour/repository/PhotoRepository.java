@@ -10,4 +10,5 @@ public interface PhotoRepository extends CrudRepository<Photo,Integer> {
 	List<Photo> findAllByAppUserAppUserIdOrderByDateTake(int autho_id);
 	List<Photo> findAllByChildChildIdAndAppUserAppUserIdOrderByDateTake(int child_id, int author_id);
 	List<Photo> findAllByClazzClassIdAndAppUserAppUserIdOrderByDateTake(int class_id, int author_id);
+	Photo findByPhotoId(int photo_id);
 }

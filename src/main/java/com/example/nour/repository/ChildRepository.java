@@ -18,4 +18,5 @@ public interface ChildRepository extends CrudRepository<Child,Integer>{
 			+ "AND sc.schoolId =:schoolId "
 			+ "GROUP BY ch.childId")
 	List<Child> findBySchoolIdAndPhoto(@Param("userId") int userId, @Param("schoolId") int school_id);
+	List<Child> findAllBySchoolSchoolId(int school_id);
 }
