@@ -30,6 +30,10 @@ public class School implements Serializable {
 	//bi-directional many-to-one association to Class
 	@OneToMany(mappedBy="school")
 	private List<Class> clazzs;
+	
+	//bi-directional many-to-one association to Child
+	@OneToMany(mappedBy="school")
+	private List<Child> childs;
 
 	//bi-directional one-to-one association to AppUser
 	@OneToOne(mappedBy="school")

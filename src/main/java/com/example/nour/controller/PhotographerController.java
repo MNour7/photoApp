@@ -4,12 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
+import javax.servlet.ServletContextListener;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ import com.example.nour.model.Class;
 import com.example.nour.model.ClassDTO;
 import com.example.nour.model.MyUserDetails;
 import com.example.nour.model.Photo;
+import com.example.nour.model.School;
 import com.example.nour.repository.AppUserRepository;
 import com.example.nour.repository.ChildRepository;
 import com.example.nour.repository.ClassRepository;
@@ -59,13 +62,54 @@ public class PhotographerController {
 	
 	private ModelMapper mapper = new ModelMapper();
 	
-	@Autowired
-	private ServletContext servletContext;
-	
 	@GetMapping(path="/shop")
-	public String myshop(Model model) {				
+	public String myshop(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
+		List<School> listSch = schoolRepository.findSchoolTake(myUser.getId());
+	
+		model.addAttribute("schools", listSch);
+		model.addAttribute("photos", photoRepository.findAllByAppUserAppUserIdOrderByDateTake(myUser.getId()));
 		
 		return "photoshop";
+	}
+	
+	@GetMapping(path="/school/{school_id}")
+	public String school(@PathVariable int school_id, Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
+		
+		model.addAttribute("school", schoolRepository.findBySchoolId(school_id));
+		model.addAttribute("childs", childRepository.findBySchoolIdAndPhoto(myUser.getId(), school_id));
+		model.addAttribute("classes", classRepository.findBySchoolIdAndPhoto(myUser.getId(), school_id));
+		
+		return "schoolPhoto";
+	}
+	
+	@GetMapping(path="/classPhotos/{class_id}")
+	public String classPhotos(@PathVariable int class_id, Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
+		
+		model.addAttribute("photos", photoRepository.findAllByClazzClassIdAndAppUserAppUserIdOrderByDateTake(class_id, myUser.getId()));
+		model.addAttribute("classe", classRepository.findByClassId(class_id));
+		
+		return "classPhotos";
+	}
+	
+	@GetMapping(path="/childPhotos/{child_id}")
+	public String childPhotos(@PathVariable int child_id, Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
+		
+		model.addAttribute("photos", photoRepository.findAllByChildChildIdAndAppUserAppUserIdOrderByDateTake(child_id, myUser.getId()));
+		model.addAttribute("child", childRepository.findByChildId(child_id));
+		
+		return "childPhotos";
 	}
 	
 	@GetMapping(path="/addPhoto")
@@ -112,47 +156,47 @@ public class PhotographerController {
 	}
 	
 	@PostMapping(path="/savePhoto")
-	public String savePhoto(@RequestParam("file") MultipartFile  file, Model model,
-			@ModelAttribute Photo photoForm) throws IOException {
+	public String savePhoto(@RequestParam("file") MultipartFile  file, @RequestParam("classId") int classId,
+			@RequestParam("childId") String childId, Model model, @ModelAttribute Photo photoForm) throws IOException {
 		
-		saveFile(file);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
+		Photo photo = new Photo();
 		
-//		Photo photo = new Photo();
-//		
-//		photo.setName(photoForm.getName());
-//		photo.setType(photoForm.getType());
-//		photo.setDateTake(new Date());
-//		if(photo.getType().equals("solo")) {
-//			Child child = childRepository.findByChildId(photoForm.getChild().getChildId());
-//			photo.setChild(child);
-//		}else {
-//			Class clazz = classRepository.findByClassId(photoForm.getClazz().getClassId());
-//			photo.setClazz(clazz);
-//		}
-//		
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
-//		AppUser appUser = appUserRepository.findByAppUserId(myUser.getId());
-//		photo.setAppUser(appUser);
-//		photo.setImage(file.getBytes());
-//		
-//		photoRepository.save(photo);
+		photo.setName(photoForm.getName());
+		photo.setType(photoForm.getType());
+		photo.setDateTake(new Date());
+		if(photo.getType().equals("class")) {
+			Class clazz = classRepository.findByClassId(classId);
+			photo.setClazz(clazz);
+		}else {
+			Child child = childRepository.findByChildId(Integer.parseInt(childId));
+			photo.setChild(child);			
+		}		
+		
+		AppUser appUser = appUserRepository.findByAppUserId(myUser.getId());
+		photo.setAppUser(appUser);
+		
+		String uuid = UUID.randomUUID().toString()+".jpg";		
+		//Storing File
+		saveFile(file, uuid);
+		
+		photo.setPath(uuid);
+		
+		photoRepository.save(photo);
 		
 		return "redirect:shop";
 	}
 	
-	public void saveFile(MultipartFile file) {
-		String webappRoot = servletContext.getRealPath("/");
-	    //System.out.println(user.toString());
+	public void saveFile(MultipartFile file, String uuid) {
+		URL url = ServletContextListener.class.getClassLoader().getResource("static/images/");
+		
 	    try {
 	        if (!file.isEmpty()) {
-	        	 String filename = file.getOriginalFilename();
-	        	 System.err.println(filename);
+	        	 //System.err.println(filename);
 	             BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-	             File destination = new File("/resources/images/"+filename); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
+	             File destination = new File(url.getPath() +uuid);
 	             ImageIO.write(src, "jpg", destination);
-	       
-	             System.err.println("Image is stored at ");
 	        } 
 	    } catch (Exception e) {
 	        System.out.println("Exception occured" + e.getMessage());

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<title>My PhotoShop</title>
+</head>
+<body>
+	<div th:replace="fragment/header :: header"></div>
+	<div class="container">
+		<h1 class="text-center" th:text="'Library of '+${classe.name}+ '(' +${classe.school.name}+ ')'"></h1>
+		<div class="row">
+		  	<div class="col-xs-6 col-md-4" th:each="pht : ${photos}"> 
+				<img class="text-center" th:src="'/images/'+${pht.path}" height="250" width="250" th:alt="${pht.name}"/>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

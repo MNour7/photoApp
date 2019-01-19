@@ -27,6 +27,11 @@ public class Child implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="class_id")
 	private Class clazz;
+	
+	//bi-directional many-to-one association to School
+	@ManyToOne
+	@JoinColumn(name="school_id")
+	private School school;
 
 	//bi-directional many-to-one association to AppUser
 	@ManyToOne
@@ -100,6 +105,14 @@ public class Child implements Serializable {
 		photo.setChild(null);
 
 		return photo;
+	}
+
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
 	}
 
 }

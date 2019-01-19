@@ -10,7 +10,21 @@
 <body>
 	<div th:replace="fragment/header :: header"></div>
 	<div class="container">
-		<h1 class="text-center">My PhotoShop</h1>
+		<h1 class="text-center">My Photo Library</h1>
+		
+		<div class="row">
+			<div class="col-xs-6 col-md-4" th:each="sch : ${schools}">
+				<a th:href="@{/photographer/school/{id}(id=${sch.schoolId})}"><button type="button" th:text="${sch.name}"
+						class="btn btn-info btn-block"></button></a>
+			</div>			
+		</div>
+		
+<!-- 		<div class="row"> -->
+<!-- 			<div class="col-md-4" th:each="pht : ${photos}"> -->
+<!-- 				<img th:src="'/images/'+${pht.path}" height="250" width="250" th:alt="${pht.name}"/> -->
+<!-- 			</div>			 -->
+<!-- 		</div> -->
+		
 		<a th:href="@{/photographer/addPhoto}">
 			<button type="button" class="btn btn-primary btn-block">Add New Photo</button>
 		</a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 18 jan. 2019 à 20:01
+-- Généré le :  sam. 19 jan. 2019 à 16:49
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -62,21 +62,24 @@ CREATE TABLE IF NOT EXISTS `child` (
   `lastname` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `class_id` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
+  `school_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`child_id`),
   KEY `FKem0ikl8nv4122btpk0disc3sg` (`parent_id`),
-  KEY `FKq507ylm14x4x4ksjcl7qjm8nm` (`class_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `FKq507ylm14x4x4ksjcl7qjm8nm` (`class_id`),
+  KEY `FKidgnlru9cmo5ygdcynqcyqccl` (`school_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `child`
 --
 
-INSERT INTO `child` (`child_id`, `firstname`, `lastname`, `class_id`, `parent_id`) VALUES
-(1, 'Kevin', 'COLOMA', 1, 4),
-(2, 'Moussa', 'NIANFO', 1, 5),
-(3, 'Emilie', 'COLOMA', 2, 4),
-(4, 'Fati', 'NIANFO', 4, 5),
-(5, 'Alpha', 'NIANFO', 5, 5);
+INSERT INTO `child` (`child_id`, `firstname`, `lastname`, `class_id`, `parent_id`, `school_id`) VALUES
+(1, 'Kevin', 'COLOMA', 1, 4, 1),
+(2, 'Moussa', 'NIANFO', 1, 5, 1),
+(3, 'Emilie', 'COLOMA', 2, 4, 1),
+(4, 'Fati', 'NIANFO', 4, 5, 1),
+(5, 'Alpha', 'NIANFO', 5, 5, 1),
+(6, 'Lea', 'COLOMA', 10, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -125,14 +128,14 @@ CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(1),
-(1),
-(1),
-(1),
-(1),
-(1),
-(1),
-(1);
+(5),
+(5),
+(5),
+(5),
+(5),
+(5),
+(5),
+(5);
 
 -- --------------------------------------------------------
 
@@ -149,13 +152,23 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `class_id` int(11) DEFAULT NULL,
   `child_id` int(11) DEFAULT NULL,
   `author_id` int(11) DEFAULT NULL,
-  `image` longblob,
   `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` tinyblob,
   PRIMARY KEY (`photo_id`),
   KEY `FK35hwl7xxgfcvep9g5boysyc0q` (`author_id`),
   KEY `FKc87peaci4l7eb8k08soaretre` (`child_id`),
   KEY `FK2pylbbqepmki54jh1hxgr3xb8` (`class_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `photo`
+--
+
+INSERT INTO `photo` (`photo_id`, `name`, `date_take`, `type`, `class_id`, `child_id`, `author_id`, `path`, `image`) VALUES
+(1, 'orchestre', '2019-01-19', 'class', 1, NULL, 1, 'adb075d3-b327-4e32-a595-e4bef9ee3711.jpg', NULL),
+(2, 'fermeture mag', '2019-01-19', 'class', 2, NULL, 1, 'ffcdf653-3b1b-40b0-8c97-2f84170de70f.jpg', NULL),
+(3, 'process odk', '2019-01-19', 'solo', NULL, 2, 1, '25a521dc-b32b-44bd-91d7-3e64d3c88c4f.jpg', NULL),
+(4, 'Hegeprine', '2019-01-19', 'class', 10, NULL, 1, '55bdb78a-7e3d-4bf5-ba63-ff574142711e.jpg', NULL);
 
 -- --------------------------------------------------------
 
