@@ -13,6 +13,9 @@ var file = {
 				}
 				else
 					alert("Une Erreur est survenue lors de la suppression de la photo");
+			},
+			error: function(){
+				alert("An error occured during deletion !!");
 			}
 		});
 	}

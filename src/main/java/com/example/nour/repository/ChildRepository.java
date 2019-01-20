@@ -12,6 +12,7 @@ public interface ChildRepository extends CrudRepository<Child,Integer>{
 	Child findByChildId(int id);
 	List<Child> findAllByClazzClassIdOrderByFirstname(int class_id);
 	List<Child> findAllBySchoolSchoolId(int school_id);
+	List<Child> findAllByAppUserAppUserIdOrderByFirstname(int parent_id);
 	
 	@Query("SELECT ch FROM School sc "
 			+ "INNER JOIN Child ch ON sc.schoolId = ch.school.schoolId "
@@ -26,4 +27,5 @@ public interface ChildRepository extends CrudRepository<Child,Integer>{
 			+ "AND sc.schoolId =:schoolId "
 			+ "GROUP BY ch.childId")	
 	List<Child> findAllHavePhoto(int schoolId);
+	
 }

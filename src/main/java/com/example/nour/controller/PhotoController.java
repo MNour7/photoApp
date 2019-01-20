@@ -3,6 +3,7 @@ package com.example.nour.controller;
 import java.io.File;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.servlet.ServletContextListener;
 
@@ -19,16 +20,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.nour.model.AppUser;
 import com.example.nour.model.Child;
 import com.example.nour.model.Class;
+import com.example.nour.model.MyUserDetails;
 import com.example.nour.model.Photo;
+import com.example.nour.model.PhotoOrder;
+import com.example.nour.repository.AppUserRepository;
 import com.example.nour.repository.ChildRepository;
 import com.example.nour.repository.ClassRepository;
+import com.example.nour.repository.PhotoOrderRepository;
 import com.example.nour.repository.PhotoRepository;
 
 @Controller
 @RequestMapping(path="photo")
 public class PhotoController {
+	
+	@Autowired
+	private AppUserRepository appUserRepository;
 	
 	@Autowired
 	private PhotoRepository photoRepository;
@@ -38,6 +47,9 @@ public class PhotoController {
 	
 	@Autowired
 	private ChildRepository childRepository;
+	
+	@Autowired
+	private PhotoOrderRepository photoOrderRepository;
 	
 	@GetMapping(path="/editPhoto/{photo_id}/{school_id}")
 	public String editPhoto(Model model, @PathVariable("photo_id") int photo_id, 
@@ -125,6 +137,27 @@ public class PhotoController {
     	}
 		
 		return bool;
+	}
+	
+	@GetMapping(path="/orderPhoto/{photo_id}")
+	public @ResponseBody String orderPhoto(@PathVariable int photo_id) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
+		
+		AppUser parent = appUserRepository.findByAppUserId(myUser.getId());
+		
+		Photo photo = photoRepository.findByPhotoId(photo_id);
+		
+		PhotoOrder order = new PhotoOrder();
+		order.setAppUser(parent);
+		order.setPhoto(photo);
+		order.setOrderDate(new Date());
+		order.setQuantity(1);
+		
+		photoOrderRepository.save(order);
+		
+		return "OK";		
 	}
 
 }

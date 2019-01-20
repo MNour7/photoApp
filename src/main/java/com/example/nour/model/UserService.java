@@ -54,10 +54,10 @@ public class UserService implements UserDetailsService {
         return authorities;
     }
 	
-	public void saveUser(AppUser appUser) {
+	public AppUser saveUser(AppUser appUser) {
 		appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
 		
-		appUserRepository.save(appUser);
+		return appUserRepository.save(appUser);
 	}
 
 }

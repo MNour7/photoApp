@@ -32,7 +32,8 @@ public class PhotoOrder implements Serializable {
 	private AppUser appUser;
 
 	//bi-directional one-to-one association to Photo
-	@OneToOne(mappedBy="photoOrder")
+	@ManyToOne
+	@JoinColumn(name="photo_id")
 	private Photo photo;
 
 	public PhotoOrder() {

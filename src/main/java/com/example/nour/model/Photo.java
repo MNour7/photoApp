@@ -5,6 +5,7 @@ import java.sql.Blob;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -28,8 +29,6 @@ public class Photo implements Serializable {
 	private String name;
 	
 	private String path;
-	
-	private byte[] image;
 
 	private String type;
 
@@ -49,9 +48,8 @@ public class Photo implements Serializable {
 	private AppUser appUser;
 
 	//bi-directional one-to-one association to PhotoOrder
-	@OneToOne
-	@JoinColumn(name="photo_id", referencedColumnName="photo_id")
-	private PhotoOrder photoOrder;
+	@OneToMany(mappedBy="photo")
+	private List<PhotoOrder> photoOrder;
 
 	public Photo() {
 	}
@@ -112,20 +110,12 @@ public class Photo implements Serializable {
 		this.appUser = appUser;
 	}
 
-	public PhotoOrder getPhotoOrder() {
-		return this.photoOrder;
+	public List<PhotoOrder> getPhotoOrder() {
+		return photoOrder;
 	}
 
-	public void setPhotoOrder(PhotoOrder photoOrder) {
+	public void setPhotoOrder(List<PhotoOrder> photoOrder) {
 		this.photoOrder = photoOrder;
-	}
-	
-	public byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(byte[] bs) {
-		this.image = bs;
 	}
 
 	public String getPath() {
