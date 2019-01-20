@@ -30,8 +30,7 @@ public class AppUser implements Serializable {
 	private String password;
 
 	//bi-directional one-to-one association to School
-	@OneToOne
-	@JoinColumn(name="app_user_id", referencedColumnName="admin_id")
+	@OneToOne(mappedBy="appUser")
 	private School school;
 
 	//bi-directional many-to-one association to Child

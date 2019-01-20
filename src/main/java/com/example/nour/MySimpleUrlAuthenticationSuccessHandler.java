@@ -54,7 +54,7 @@ implements AuthenticationSuccessHandler{
         boolean isPhoto = false;
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        System.err.println("collection size = " + authorities.size() +" Content = "+authorities.toString());
+//        System.err.println("collection size = " + authorities.size() +" Content = "+authorities.toString());
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ROLE_PHOTO")) {
             	isPhoto = true;
@@ -68,9 +68,9 @@ implements AuthenticationSuccessHandler{
         if (isPhoto) {
             return "/photographer/shop";
         } else if (isAdmin) {
-            return "/console.html";
+            return "/admin/home";
         } else {
-        	return "/parent.html";
+        	return "/parent/home";
         }
     }
  

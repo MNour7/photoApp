@@ -36,7 +36,8 @@ public class School implements Serializable {
 	private List<Child> childs;
 
 	//bi-directional one-to-one association to AppUser
-	@OneToOne(mappedBy="school")
+	@OneToOne
+	@JoinColumn(name="admin_id")
 	private AppUser appUser;
 
 	public School() {

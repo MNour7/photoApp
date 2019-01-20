@@ -5,7 +5,7 @@ var file = {
 	
 	deletePhoto : function(val){
 		$.ajax({
-			url: "/photographer/deletePhoto/"+val,
+			url: "/photo/deletePhoto/"+val,
 			success: function(data){
 				if(data == "OK"){
 					$("#photo"+val).hide();

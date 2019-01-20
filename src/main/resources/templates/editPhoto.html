@@ -11,7 +11,7 @@
 	<div class="container">
 		<h2>Edit the Photo</h2>
 
-		<form th:action="@{/photographer/saveEditPhoto}" th:object="${photoForm}"
+		<form th:action="@{/photo/saveEditPhoto}" th:object="${photoForm}"
 			method="POST" >
 			
 			<div class="form-group">
@@ -47,7 +47,5 @@
 
 		</form>
 	</div>
-	
-	<script src="/js/addPhoto.js"></script>
 </body>
 </html>

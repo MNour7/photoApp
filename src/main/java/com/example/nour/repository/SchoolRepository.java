@@ -20,4 +20,6 @@ public interface SchoolRepository extends CrudRepository<School, Integer>{
 	List<School> findSchoolTake(@Param("userId") int userId);
 
 	School findBySchoolId(int school_id);
+
+	School findByAppUserAppUserId(int id);
 }
