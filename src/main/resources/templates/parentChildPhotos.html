@@ -3,46 +3,53 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<link rel="stylesheet" href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="../../css/style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="ISO-8859-1">
-<title>Photo of the child</title>
+<title>Pupil Photos</title>
 </head>
 <body>
-	<div th:replace="fragment/header :: header"></div>
+	<div th:replace="fragment/headerParent :: header"></div>
 	<div class="container">
-		<h1 class="text-center" 
-		th:text="'Library of  '+ ${child.firstname}+' '+${child.lastname}"></h1>
-		<div class="row">		
+		<h1 class="text-center"
+			th:text="${child.firstname}+' '+${child.lastname} + ' Photobook'"></h1>
+		<hr />
+		<a href="/parent/home" class="btn btn-default">Back</a>
+		<hr />
+		<div class="row">
 			<div class="col-xs-6">
-			  	<h2 class="text-center">Class Photos</h2>
-			  	<div class="col-xs-6 col-md-4" th:each="pht : ${classphotos}" th:id="'photo'+${pht.photoId}"> 
-			  		<p class="btn-gest">
+				<h2 class="text-center">Class Photos</h2>
+				<div class="col-xs-6 col-md-4" th:each="pht : ${classphotos}"
+					th:id="'photo'+${pht.photoId}">
+					<p class="btn-gest">
 						<button type="button" class="btn btn-success">
-		  					<input type="hidden" th:value="${pht.photoId}"/>
-		  					Order
-		  				</button>
-			  		</p>
-					<img class="text-center" th:src="'/images/'+${pht.path}" height="250" width="250" th:alt="${pht.name}"/>
+							<input type="hidden" th:value="${pht.photoId}" /> Order
+						</button>
+					</p>
+					<img class="text-center" th:src="'/images/'+${pht.path}"
+						height="250" width="250" th:alt="${pht.name}" />
 				</div>
-		   </div>
-		  
-		  <div class="col-xs-6">
-		  	<h2 class="text-center">Solo Photos</h2>
-		  	<div class="col-xs-6 col-md-4" th:each="spht : ${solophotos}" th:id="'photo'+${spht.photoId}"> 
-		  		<p class="btn-gest">
-					<button type="button" class="btn btn-success">
-	  					<input type="hidden" th:value="${spht.photoId}"/>
-	  					Order
-	  				</button>
-		  		</p>
-				<img class="text-center" th:src="'/images/'+${spht.path}" height="250" width="250" th:alt="${spht.name}"/>
 			</div>
-		  </div>
+
+			<div class="col-xs-6">
+				<h2 class="text-center">Solo Photos</h2>
+				<div class="col-xs-6 col-md-4" th:each="spht : ${solophotos}"
+					th:id="'photo'+${spht.photoId}">
+					<p class="btn-gest">
+						<button type="button" class="btn btn-success">
+							<input type="hidden" th:value="${spht.photoId}" /> Order
+						</button>
+					</p>
+					<img class="text-center" th:src="'/images/'+${spht.path}"
+						height="250" width="250" th:alt="${spht.name}" />
+				</div>
+			</div>
 		</div>
 	</div>
-	
+
 	<script src="/js/order.js"></script>
 </body>
 </html>

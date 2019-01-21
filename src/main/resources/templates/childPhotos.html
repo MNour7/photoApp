@@ -17,6 +17,8 @@
 		<h1 class="text-center"
 			th:text="${child.firstname}+' '+${child.lastname}+' Photobook' +  ' (' +${child.clazz.name}+ ' at ' +${child.school.name}+ ')'"></h1>
 		<hr />
+		<a href="/admin/home" class="btn btn-default">Back</a>
+		<hr />
 		<div class="row">
 			<div class="col-xs-6 col-md-4" th:each="pht : ${photos}"
 				th:id="'photo'+${pht.photoId}">
