@@ -15,11 +15,11 @@
 		<hr />
 
 		<form th:action="@{/photographer/savePhoto}" th:object="${photoForm}"
-			method="POST" enctype="multipart/form-data">
+			method="POST" enctype="multipart/form-data" id ="form">
 
 			<div class="form-group">
 				<label for="name">Select a Photo :</label> <input type="file"
-					name="file" class="form-control" accept="image/jpeg" />
+					name="file" class="form-control" accept="image/jpeg" id="file"/>
 			</div>
 			<div class="form-group">
 				<label for="name">Title :</label> <input type="text"
@@ -46,20 +46,18 @@
 			<div class="form-group">
 				<label for="cls">Class :</label> <select class="form-control"
 					name="classId" id="cls">
-
+					<option value=""></option>
 				</select>
 			</div>
 
-			<div class="form-group" id="chl_sel">
+			<div class="form-group" id="chl_sel" style="display: none;">
 				<label for="chl">Child :</label> <select class="form-control"
 					name="childId" id="chl">
-					<option value="1"></option>
+					<option value=""></option>
 				</select>
 			</div>
-
-			<input type="submit" class="btn btn-primary btn-block" value="Add" />
-
 		</form>
+		<button type="button" id="btn-add" class="btn btn-primary btn-block">Add</button>
 	</div>
 
 	<script src="/js/addPhoto.js"></script>

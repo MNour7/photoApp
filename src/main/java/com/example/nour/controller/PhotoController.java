@@ -86,7 +86,7 @@ public class PhotoController {
 		boolean isPhoto = false;
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
-//	        System.err.println("collection size = " + authorities.size() +" Content = "+authorities.toString());
+
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ROLE_PHOTO")) {
             	isPhoto = true;
@@ -126,10 +126,10 @@ public class PhotoController {
     		File file = new File(url.getPath()+path);        	
     		if(file.delete()){
     			bool=true;
-    			System.out.println(file.getName() + " is deleted!");
+    		
     		}else{
     			bool=false;
-    			System.out.println("Delete operation is failed.");
+    			
     		}
     	   
     	}catch(Exception e){    		

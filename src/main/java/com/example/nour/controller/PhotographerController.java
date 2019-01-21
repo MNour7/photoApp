@@ -38,6 +38,7 @@ import com.example.nour.model.School;
 import com.example.nour.repository.AppUserRepository;
 import com.example.nour.repository.ChildRepository;
 import com.example.nour.repository.ClassRepository;
+import com.example.nour.repository.PhotoOrderRepository;
 import com.example.nour.repository.PhotoRepository;
 import com.example.nour.repository.SchoolRepository;
 
@@ -59,6 +60,9 @@ public class PhotographerController {
 
 	@Autowired
 	private ChildRepository childRepository;
+	
+	@Autowired
+	private PhotoOrderRepository photoOrderRepository;
 
 	private ModelMapper mapper = new ModelMapper();
 
@@ -128,7 +132,7 @@ public class PhotographerController {
 
 		List<Class> listClasses = classRepository.findAllBySchoolSchoolId(idSchool);
 		List<ClassDTO> listDTO = new ArrayList<>();
-		System.err.println("list size = " + listClasses.size());
+		
 		String classes = "";
 		for (int i = 0; i < listClasses.size(); i++) {
 			listDTO.add(mapper.map(listClasses.get(i), ClassDTO.class));
@@ -157,6 +161,17 @@ public class PhotographerController {
 		}
 
 		return childs;
+	}
+	
+	@GetMapping(path = "/sales")
+	public String sales(@PathVariable int classId, Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
+		
+		model.addAttribute("classOrders", photoOrderRepository.findByPhotoAppUserAppUserIdOrderByOrderDate(myUser.getId()));
+
+		return "photoSales";
 	}
 
 	@PostMapping(path = "/savePhoto")
@@ -190,12 +205,6 @@ public class PhotographerController {
 		photoRepository.save(photo);
 
 		return "redirect:shop";
-	}
-
-	@GetMapping(path = "/sales")
-	public String loadSales() {
-
-		return "photoSales";
 	}
 
 	public void saveFile(MultipartFile file, String uuid) {
