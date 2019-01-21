@@ -8,25 +8,25 @@
 <link rel="stylesheet" href="../../css/style.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <meta charset="ISO-8859-1">
-<title>Class Photo</title>
+<title>Child Photo</title>
 </head>
 <body>
-	<div th:replace="fragment/headerAdmin :: header"></div>
+	<div th:replace="fragment/headerPhoto :: header"></div>
 	<div class="container">
 		<h1 class="text-center"
-			th:text="${classe.school.name}+ '\'s ' + ${classe.name} + ' Photobook'"></h1>
+			th:text="${child.firstname}+' '+${child.lastname}+' Photobook' +  ' (' +${child.clazz.name}+ ' at ' +${child.school.name}+ ')'"></h1>
+		<hr />
+		<a href="/photographer/shop" class="btn btn-default">Back</a>
 		<hr />
 		<div class="row">
 			<div class="col-xs-6 col-md-4" th:each="pht : ${photos}"
 				th:id="'photo'+${pht.photoId}">
 				<p class="btn-gest">
 					<a
-						th:href="@{/photo/editPhoto/{id}/{id2}(id=${pht.photoId},id2=${classe.school.schoolId})}">
+						th:href="@{/photo/editPhoto/{id}/{id2}(id=${pht.photoId},id2=${child.school.schoolId})}">
 						<button type="button" class="btn btn-primary">Edit</button>
 					</a>
-
 					<button type="button" class="btn btn-danger">
 						<input type="hidden" th:value="${pht.photoId}" /> Delete
 					</button>

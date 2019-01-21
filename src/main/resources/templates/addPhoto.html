@@ -6,20 +6,22 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="ISO-8859-1">
-<title>Employee Edition</title>
+<title>Add Photo</title>
 </head>
 <body>
-	<div th:replace="fragment/header :: header"></div>
+	<div th:replace="fragment/headerPhoto :: header"></div>
 	<div class="container">
-		<h2>Edit the Employee</h2>
+		<h2>Add Photo</h2>
+		<hr />
+		<a href="/photographer/shop" class="btn btn-default">Back</a>
 		<hr />
 
 		<form th:action="@{/photographer/savePhoto}" th:object="${photoForm}"
-			method="POST" enctype="multipart/form-data" id ="form">
+			method="POST" enctype="multipart/form-data" id="form">
 
 			<div class="form-group">
 				<label for="name">Select a Photo :</label> <input type="file"
-					name="file" class="form-control" accept="image/jpeg" id="file"/>
+					name="file" class="form-control" accept="image/jpeg" id="file" />
 			</div>
 			<div class="form-group">
 				<label for="name">Title :</label> <input type="text"

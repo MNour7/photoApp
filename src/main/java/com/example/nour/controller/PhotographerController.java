@@ -102,7 +102,7 @@ public class PhotographerController {
 				photoRepository.findAllByClazzClassIdAndAppUserAppUserIdOrderByDateTake(class_id, myUser.getId()));
 		model.addAttribute("classe", classRepository.findByClassId(class_id));
 
-		return "classPhotos";
+		return "classPhotosOwn";
 	}
 
 	@GetMapping(path = "/childPhotos/{child_id}")
@@ -115,7 +115,7 @@ public class PhotographerController {
 				photoRepository.findAllByChildChildIdAndAppUserAppUserIdOrderByDateTake(child_id, myUser.getId()));
 		model.addAttribute("child", childRepository.findByChildId(child_id));
 
-		return "childPhotos";
+		return "childPhotosOwn";
 	}
 
 	@GetMapping(path = "/addPhoto")

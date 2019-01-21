@@ -12,11 +12,13 @@
 	<div th:replace="fragment/headerAdmin :: header"></div>
 	<div class="container">
 		<h1 class="text-center">Sales Track</h1>
+		<hr>
+		<a href="/admin/home" class="btn btn-default">Back</a>
 		<hr />
 		<h3 th:text="'Total sales of group photos: ' + ${totalClass}+ ' €'"></h3>
 		<h3
 			th:text="'Total sales of individual photos: ' + ${totalSolo} + ' €'"></h3>
-			<h3 th:text="'Total: ' + ${totalAll} + ' €'" style="color:green;"></h3>
+		<h3 th:text="'Total: ' + ${totalAll} + ' €'" style="color: green;"></h3>
 		<hr />
 
 		<table class="table table-striped" border="1">
