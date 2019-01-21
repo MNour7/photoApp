@@ -13,8 +13,42 @@
 	<div class="container">
 		<h1 class="text-center">Sales Track</h1>
 		<hr />
-	</div>
+		
+		<table class="table table-striped" border="1">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>NAME</th>
+					<th>TYPE</th>
+					<th>ORDER DATE</th>
+					<th>SCHOOL</th>
+					<th>PRICE</th>
+				</tr>
+			</thead>
 
+			<tbody th:each="clo : ${classOrders}">
+				<tr>
+					<td th:text="${clo.photo.photoId}"></td>
+					<td th:text="${clo.photo.name}"></td>
+					<td th:text="${clo.photo.type}"></td>
+					<td th:text="${clo.orderDate}"></td>
+					<td th:text="${clo.photo.clazz.school.name}"></td>
+					<td th:text="${clo.photo.clazz.school.groupPrice}"></td>
+				</tr>
+			</tbody>
+			<tbody th:each="slo : ${soloOrders}">
+				<tr>
+					<td th:text="${slo.photo.photoId}"></td>
+					<td th:text="${slo.photo.name}"></td>
+					<td th:text="${slo.photo.type}"></td>
+					<td th:text="${slo.orderDate}"></td>
+					<td th:text="${slo.photo.child.school.name}"></td>
+					<td th:text="${slo.photo.child.school.soloPrice}"></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
 
 </body>
 </html>

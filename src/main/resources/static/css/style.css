@@ -6,6 +6,6 @@
 	position: absolute;
 }
 
-.col-xs-6:hover p{
+.col-xs-6:hover > p{
 	display:block;
 }

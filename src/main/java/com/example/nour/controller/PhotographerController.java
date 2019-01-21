@@ -164,12 +164,13 @@ public class PhotographerController {
 	}
 	
 	@GetMapping(path = "/sales")
-	public String sales(@PathVariable int classId, Model model) {
+	public String sales(Model model) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		MyUserDetails myUser = (MyUserDetails) auth.getPrincipal();
 		
-		model.addAttribute("classOrders", photoOrderRepository.findByPhotoAppUserAppUserIdOrderByOrderDate(myUser.getId()));
+		model.addAttribute("classOrders", photoOrderRepository.findByPhotoAppUserAppUserIdAndPhotoTypeOrderByOrderDate(myUser.getId(),"class"));
+		model.addAttribute("soloOrders", photoOrderRepository.findByPhotoAppUserAppUserIdAndPhotoTypeOrderByOrderDate(myUser.getId(),"solo"));
 
 		return "photoSales";
 	}

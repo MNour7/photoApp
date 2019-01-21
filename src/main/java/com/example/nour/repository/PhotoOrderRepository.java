@@ -10,4 +10,6 @@ public interface PhotoOrderRepository extends CrudRepository<PhotoOrder, Integer
 
 	List<PhotoOrder> findByPhotoAppUserAppUserIdOrderByOrderDate(int id);
 
+	List<PhotoOrder> findByPhotoAppUserAppUserIdAndPhotoTypeOrderByOrderDate(int id, String string);
+
 }
