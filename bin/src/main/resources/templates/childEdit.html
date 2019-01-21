@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<title>Child Edition</title>
+</head>
+<body>
+	<div th:replace="fragment/headerAdmin :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Edit the Child</h2>
+
+		<form th:action="@{/child/save}" th:object="${childForm}"
+			method="POST">
+			<p>
+				<span>Child ID :</span> <span
+					th:text="${childForm.childId}"></span>
+			</p>
+			<div class="form-group">
+				<input type="text" th:field="*{childId}" style="display: none;" />
+				<input type="text" name="type" th:value="${type}"  style="display: none;" />
+				<label for="name">First Name :</label> <input type="text"
+					th:field="*{firstname}" class="form-control" id="name" />
+			</div>
+			<div class="form-group">
+				<label for="lname">Last Name :</label> <input type="text"
+					th:field="*{lastname}" class="form-control" id="lname" />
+			</div>
+			
+			<div class="form-group">
+				<label for="sch">Parent :</label> <select  th:field="*{appUser.appUserId}"
+					class="form-control" id="sch">
+					<option th:each="par : ${parents}" th:value="${par.appUserId}"
+						th:text="${par.firstname}+' '+${par.lastname}"></option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="sch">Class :</label> <select  th:field="*{clazz.classId}"
+					class="form-control">
+					<option th:each="cl : ${classes}" th:value="${cl.classId}"
+						th:text="${cl.name}"></option>
+				</select>
+			</div>
+
+			<input type="submit" class="btn btn-primary btn-block" value="Commit" />
+
+		</form>
+	</div>
+</body>
+</html>

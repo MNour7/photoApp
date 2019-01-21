@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<title>Classes List</title>
+</head>
+<body>
+	<div th:replace="fragment/headerAdmin :: header"></div>
+	<div class="container">
+		<h1 th:text="'List of Classes (' +${school.name}+')'" class="text-center"></h1>
+		<a th:href="@{/class/add}" style="display: block; margin: 15px 0;">
+			<button type="button" class="btn btn-primary btn-block">Add New Class</button>
+		</a>
+		<table class="table table-striped" border="1">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>NAME</th>
+					<th>ACTION</th>
+				</tr>
+			</thead>
+
+			<tbody th:each="cl : ${classes}">
+				<tr>
+					<td th:text="${cl.classId}"></td>
+					<td th:text="${cl.name}"></td>
+					
+					<td><a th:href="@{/class/edit/{id}(id=${cl.classId})}">Edit</a></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+</body>
+</html>
