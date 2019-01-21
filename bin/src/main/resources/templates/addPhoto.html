@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="ISO-8859-1">
 <title>Employee Edition</title>
 </head>
@@ -10,17 +12,19 @@
 	<div th:replace="fragment/header :: header"></div>
 	<div class="container">
 		<h2>Edit the Employee</h2>
+		<hr />
 
 		<form th:action="@{/photographer/savePhoto}" th:object="${photoForm}"
-			method="POST" enctype="multipart/form-data">
-			
+			method="POST" enctype="multipart/form-data" id ="form">
+
 			<div class="form-group">
-				<label for="name">Select a Photo :</label> 
-				<input type="file" name="file" class="form-control" accept="image/jpeg"/>
+				<label for="name">Select a Photo :</label> <input type="file"
+					name="file" class="form-control" accept="image/jpeg" id="file"/>
 			</div>
 			<div class="form-group">
 				<label for="name">Title :</label> <input type="text"
-					th:field="*{name}" class="form-control" id="name"  placeholder="Name of the photo"/>
+					th:field="*{name}" class="form-control" id="name"
+					placeholder="Name of the photo" />
 			</div>
 			<div class="form-group">
 				<label for="type">Type :</label> <select th:field="*{type}"
@@ -31,33 +35,31 @@
 			</div>
 
 			<div class="form-group">
-				<label for="sch">School :</label> <select 
-					class="form-control" id="sch">
+				<label for="sch">School :</label> <select class="form-control"
+					id="sch">
 					<option value="">select a school</option>
 					<option th:each="sch : ${schools}" th:value="${sch.schoolId}"
 						th:text="${sch.name}"></option>
 				</select>
 			</div>
-			
+
 			<div class="form-group">
-				<label for="cls">Class :</label> <select 
-					class="form-control" name="classId" id="cls">
-					
-				</select>
-			</div>
-			
-			<div class="form-group" id="chl_sel">
-				<label for="chl">Child :</label> <select 
-					class="form-control" name="childId" id="chl">
-					<option value="1"></option>
+				<label for="cls">Class :</label> <select class="form-control"
+					name="classId" id="cls">
+					<option value=""></option>
 				</select>
 			</div>
 
-			<input type="submit" class="btn btn-primary btn-block" value="Commit" />
-
+			<div class="form-group" id="chl_sel" style="display: none;">
+				<label for="chl">Child :</label> <select class="form-control"
+					name="childId" id="chl">
+					<option value=""></option>
+				</select>
+			</div>
 		</form>
+		<button type="button" id="btn-add" class="btn btn-primary btn-block">Add</button>
 	</div>
-	
+
 	<script src="/js/addPhoto.js"></script>
 </body>
 </html>

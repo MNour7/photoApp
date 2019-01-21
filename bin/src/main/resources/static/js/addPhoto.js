@@ -31,14 +31,30 @@ var add = {
 			success: function(data){
 				let tab = data.split("|");
 				$("#chl").empty();
-				$("#chl").append('<option value=""></option>');
-				
 				for(let i = 0; i < tab.length; i++){
 					let subTab = tab[i].split("=");
 					$("#chl").append('<option value="'+subTab[0]+'">'+subTab[1]+'</option>');
 				}
 			}
 		});
+	},
+	
+	checkValues : function(){
+		
+		let type = $("#type").val();
+		let file = document.getElementById('file');
+		if(type == "class"){
+			if($("#cls").val() !="" && file.files.length != 0)
+				$("#form").submit();
+			else
+				alert("Please choose a class or select a photo");
+		}
+		else{
+			if($("#chl").val() !="" && file.files.length != 0)
+				$("#form").submit();
+			else
+				alert("Please choose a child or select a photo");
+		}
 	}
 };
 
@@ -57,10 +73,11 @@ $(document).ready(function(){
 	});
 	
 	$("#type").change(function(){
-		
-		add.showChild($(this).val());
-			
+		add.showChild($(this).val());			
 	});
 	
+	$("#btn-add").click(function(){
+		add.checkValues();
+	});
 	
 });

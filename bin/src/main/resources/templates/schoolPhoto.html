@@ -3,31 +3,38 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<link rel="stylesheet" href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
 <meta charset="ISO-8859-1">
-<title>My PhotoShop</title>
+<title>School Photobook</title>
 </head>
 <body>
 	<div th:replace="fragment/header :: header"></div>
 	<div class="container">
-		<h1 class="text-center" th:text="'Library of '+${school.name}"></h1>
+		<h1 class="text-center" th:text="${school.name}+ ' Photobook'"></h1>
+		<hr />
 		<div class="row">
-		  <div class="col-xs-6">
-		  	<h2 class="text-center">Classes</h2>
-		  	<div class="col-xs-6 col-md-4" th:each="cls : ${classes}">
-		  		<a th:href="@{/photographer/classPhotos/{id}(id=${cls.classId})}">
-		  			<button type="button" th:text="${cls.name}"	class="btn btn-info btn-block"></button>
-				</a>
-		  	</div>
-		  </div>
-		  <div class="col-xs-6">
-		  	<h2 class="text-center">Children</h2>
-		  	<div class="col-xs-6 col-md-4" th:each="chl : ${childs}">
-		  		<a th:href="@{/photographer/childPhotos/{id}(id=${chl.childId})}">
-		  			<button type="button" th:text="${chl.firstname}+' '+${chl.lastname}" class="btn btn-info btn-block"></button>
-				</a>
-		  	</div>
-		  </div>
+			<div class="col-xs-6">
+				<h2 class="text-center">Classes</h2>
+				<hr />
+				<div class="col-xs-6 col-md-4" th:each="cls : ${classes}">
+					<a th:href="@{/photographer/classPhotos/{id}(id=${cls.classId})}">
+						<button type="button" th:text="${cls.name}"
+							class="btn btn-info btn-block"></button>
+					</a>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<h2 class="text-center">Children</h2>
+				<hr />
+				<div class="col-xs-6 col-md-4" th:each="chl : ${childs}">
+					<a th:href="@{/photographer/childPhotos/{id}(id=${chl.childId})}">
+						<button type="button"
+							th:text="${chl.firstname}+' '+${chl.lastname}"
+							class="btn btn-info btn-block"></button>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

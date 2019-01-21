@@ -8,8 +8,8 @@ import com.example.nour.model.PhotoOrder;
 
 public interface PhotoOrderRepository extends CrudRepository<PhotoOrder, Integer>{
 
-	List<PhotoOrder> findByPhotoAppUserAppUserIdOrderByOrderDate(int id);
-
+	List<PhotoOrder> findByPhotoClazzSchoolSchoolIdOrderByOrderDate(int id);
+	List<PhotoOrder> findByPhotoChildSchoolSchoolIdOrderByOrderDate(int schoolId);
 	List<PhotoOrder> findByPhotoAppUserAppUserIdAndPhotoTypeOrderByOrderDate(int id, String string);
 
 }

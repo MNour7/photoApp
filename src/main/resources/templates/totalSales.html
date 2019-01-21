@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet"
+	href="../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<title>All Sales</title>
+</head>
+<body>
+	<div th:replace="fragment/headerAdmin :: header"></div>
+	<div class="container">
+		<h1 class="text-center">Sales Track</h1>
+		<hr />
+		<h3 th:text="'Total sales of group photos: ' + ${totalClass}+ ' €'"></h3>
+		<h3
+			th:text="'Total sales of individual photos: ' + ${totalSolo} + ' €'"></h3>
+			<h3 th:text="'Total: ' + ${totalAll} + ' €'" style="color:green;"></h3>
+		<hr />
+
+		<table class="table table-striped" border="1">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>NAME</th>
+					<th>TYPE</th>
+					<th>ORDER DATE</th>
+					<th>AUTHOR</th>
+				</tr>
+			</thead>
+
+			<tbody th:each="clo : ${classOrders}">
+				<tr>
+					<td th:text="${clo.photo.photoId}"></td>
+					<td th:text="${clo.photo.name}"></td>
+					<td th:text="${clo.photo.type}"></td>
+					<td th:text="${clo.orderDate}"></td>
+					<td
+						th:text="${clo.photo.appUser.firstname} + ' ' + ${clo.photo.appUser.lastname}"></td>
+				</tr>
+			</tbody>
+			<tbody th:each="slo : ${soloOrders}">
+				<tr>
+					<td th:text="${slo.photo.photoId}"></td>
+					<td th:text="${slo.photo.name}"></td>
+					<td th:text="${slo.photo.type}"></td>
+					<td th:text="${slo.orderDate}"></td>
+					<td
+						th:text="${slo.photo.appUser.firstname} + ' ' + ${slo.photo.appUser.lastname}"></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+
+
+
+
+
+</body>
+</html>
