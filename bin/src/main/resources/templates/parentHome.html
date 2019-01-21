@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" href="../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<title>My PhotoShop</title>
+</head>
+<body>
+	<div th:replace="fragment/header :: header"></div>
+	<div class="container">
+		<h1 class="text-center">My children's Library</h1>
+		<div class="row">
+		  	<div class="col-xs-6 col-md-4" th:each="chl : ${childs}" style="margin: 15px 0;">
+		  		<a th:href="@{/parent/childPhotos/{id}(id=${chl.childId})}">
+		  			<button type="button" th:text="${chl.firstname}+' '+${chl.lastname}" class="btn btn-info btn-block"></button>
+				</a>
+		  	</div>
+		</div>
+	</div>
+	
+</body>
+</html>

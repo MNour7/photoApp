@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta charset="ISO-8859-1">
+<title>Photo Edition</title>
+</head>
+<body>
+	<div th:replace="fragment/header :: header"></div>
+	<div class="container">
+		<h2>Edit the Photo</h2>
+
+		<form th:action="@{/photo/saveEditPhoto}" th:object="${photoForm}"
+			method="POST" >
+			
+			<div class="form-group">
+				<input type="text" th:field="*{photoId}" style="display:none"/>
+				<label for="name">Title :</label> <input type="text"
+					th:field="*{name}" class="form-control" id="name"  placeholder="Name of the photo"/>
+			</div>
+			<div class="form-group">
+				<label for="type">Type :</label> <select th:field="*{type}"
+					class="form-control" id="type">
+					<option value="class">Class</option>
+					<option value="solo">Solo</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="cls">Class :</label> <select 
+					class="form-control" th:field="*{clazz.classId}" name="classId" id="cls">			
+					<option th:each="cls : ${classes}" th:value="${cls.classId}"
+						th:text="${cls.name}"></option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="chl">Child :</label> <select 
+					class="form-control" th:field="*{child.childId}" name="classId" id="chl">						
+					<option th:each="chl : ${childs}" th:value="${chl.childId}"
+						th:text="${chl.firstname}+' '+${chl.lastname}"></option>
+				</select>
+			</div>
+
+			<input type="submit" class="btn btn-primary btn-block" value="Commit" />
+
+		</form>
+	</div>
+</body>
+</html>

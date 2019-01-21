@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<title>Class Edition</title>
+</head>
+<body>
+	<div th:replace="fragment/headerAdmin :: header"></div>
+	<div class="container">
+		<h2 class="text-center">Edit the Class</h2>
+
+		<form th:action="@{/class/save}" th:object="${classForm}"
+			method="POST">
+			<p>
+				<span>Class ID :</span> <span
+					th:text="${classForm.classId}"></span>
+			</p>
+			<div class="form-group">
+				<input type="text" th:field="*{classId}" style="display: none;" />
+				<input type="text" name="type" th:value="${type}"  style="display: none;" />
+				<label for="name"> Name :</label> <input type="text"
+					th:field="*{name}" class="form-control" id="name" />
+			</div>
+
+			<input type="submit" class="btn btn-primary btn-block" value="Commit" />
+
+		</form>
+	</div>
+</body>
+</html>

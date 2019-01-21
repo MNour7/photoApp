@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="../webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+<title>Employees List</title>
+</head>
+<body>
+	<div th:replace="fragment/headerAdmin :: header"></div>
+	<div class="container">
+		<h1 th:text="'List of Children (' +${school.name}+')'" class="text-center"></h1>
+		<a th:href="@{/child/add}" style="display: block; margin: 15px 0;">
+			<button type="button" class="btn btn-primary btn-block">Add New Child</button>
+		</a>
+		<table class="table table-striped" border="1">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>FIRST NAME</th>
+					<th>LAST NAME</th>
+					<th>PARENT</th>
+					<th>CLASS</th>
+					<th>ACTION</th>
+				</tr>
+			</thead>
+
+			<tbody th:each="ch : ${childs}">
+				<tr>
+					<td th:text="${ch.childId}"></td>
+					<td th:text="${ch.firstname}"></td>
+					<td th:text="${ch.lastname}"></td>
+					<td th:text="${ch.appUser.firstname}+' '+${ch.appUser.lastname}"></td>
+					<td th:text="${ch.clazz.name}"></td>
+					<td><a th:href="@{/child/edit/{id}(id=${ch.childId})}">Edit</a></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+</body>
+</html>
