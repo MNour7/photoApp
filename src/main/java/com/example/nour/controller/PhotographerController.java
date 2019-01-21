@@ -194,6 +194,7 @@ public class PhotographerController {
 
 	@GetMapping(path = "/sales")
 	public String loadSales() {
+
 		return "photoSales";
 	}
 
