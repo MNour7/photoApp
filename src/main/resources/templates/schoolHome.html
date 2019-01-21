@@ -23,7 +23,7 @@
 		  <div class="col-xs-6">
 		  	<h2 class="text-center">Children</h2>
 		  	<div class="col-xs-6 col-md-4" th:each="chl : ${childs}">
-		  		<a th:href="@{/parent/childPhotos/{id}(id=${chl.childId})}">
+		  		<a th:href="@{/admin/childPhotos/{id}(id=${chl.childId})}">
 		  			<button type="button" th:text="${chl.firstname}+' '+${chl.lastname}" class="btn btn-info btn-block"></button>
 				</a>
 		  	</div>
